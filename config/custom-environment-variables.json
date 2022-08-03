@@ -1,0 +1,5 @@
+{
+  "jwtPrivateKey": "mySecureKey",
+  "serverPort": "EWalletServerPort",
+  "dbConnectionString": "EWalletDbConnectionString"
+}
