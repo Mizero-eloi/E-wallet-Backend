@@ -37,6 +37,7 @@ const walletSchema = new mongoose.Schema({
         dateCreated: {
           type: Date,
           required: true,
+          default: Date.now(),
         },
       }),
     ],
@@ -65,6 +66,7 @@ const walletSchema = new mongoose.Schema({
         dateCreated: {
           type: Date,
           required: true,
+          default: Date.now(),
         },
       }),
     ],
@@ -86,11 +88,12 @@ const validateUserEntry = (user) => {
 
   return schema.validate(user);
 };
-const validateUserRegistration = (user) => {
+
+const validateTransactionRegistration = (user) => {
   const schema = Joi.object().keys({
-    username: Joi.string().min(5).max(50).required(),
-    email: Joi.string().min(5).max(255).required().email(),
-    password: Joi.string().min(5).max(8).required(),
+    label: Joi.string().min(5).max(50).required(),
+    description: Joi.string().min(5).max(255).required(),
+    amount: Joi.number().required(),
   });
 
   return schema.validate(user);
@@ -117,7 +120,8 @@ const checkEmail = (user) => {
 };
 
 module.exports.Wallet = Wallet;
-module.exports.validateUserRegistration = validateUserRegistration;
+module.exports.validateTransactionRegistration =
+  validateTransactionRegistration;
 module.exports.checkEmail = checkEmail;
 module.exports.validateUserEntry = validateUserEntry;
 module.exports.validateUserProfile = validateUserProfile;
