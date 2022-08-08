@@ -7,6 +7,16 @@ module.exports.incomeRegistration = async (req, res, next) => {
   const { error } = validateTransactionRegistration(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
+  // checking the owner of the wallet
+  const wallet = await Wallet.findById(req.params.walletId);
+  if (wallet) {
+    const owner = wallet.owner;
+    if (owner._id != req.user._id)
+      return res
+        .status(400)
+        .send("You do not have permission to access this wallet");
+  }
+
   // initializing the income object
   const income = {
     label: req.body.label,
