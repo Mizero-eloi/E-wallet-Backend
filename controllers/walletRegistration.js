@@ -10,6 +10,7 @@ module.exports.walletCreation = async (req, res, next) => {
         _id: user._id,
         username: user.username,
       },
+      isAdmin: true,
     });
 
     // creating the wallet
