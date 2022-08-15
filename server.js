@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const helmet = require("helmet");
 const compression = require("compression");
 const cors = require("cors");
+const config = require("config");
 
 const app = express();
 
@@ -12,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connecting to the database
 mongoose
-  .connect("mongodb://localhost/e-wallet")
+  .connect(config.get("dbConnectionString"))
   .then(() => console.log("MONGODB CONNECTED !!"))
   .catch((ex) => console.log("MONGODB CONNECTION FAILED ", ex));
 
